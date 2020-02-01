@@ -1,44 +1,38 @@
 # Banker
 
-the defualt Campaigns will upload in setup via getCampaigns (bean) function .
-getCampaigns return hashmap of key,value  
-key is type long that represent id of Campaign
-value is type long that represent money of Campaign
+The defualt campaigns will upload in setup via "getCampaigns" function.
+"getCampaigns" return hashmap.  
+Key is type long that represent id of campaign and
+value is type long that represent money of campaign.
 
-the data can change only via DataCampaignsConfig class
+The campaigns data can only change via "DataCampaignsConfig" class
 
-redis db use in port 6379 and host localhost
+Redis db use in port 6379 and host localhost you can change those 
+properties via application properties file.
 
-can change via application property
+The server run on port 9119  you can also change this via application properties file.
 
-spring.redis.host=localhost
-spring.redis.port=6379
-
-like we say there is two api :
+There is two api :
 
 @PostMapping("/bid")
 public Boolean newBid(@RequestBody Bid newBid)
 
 post request get Bid as json object 
 
-like 
+like this
 {
 	"bidId":1,
 	"campaignId":3,
 	"cost":2
 }
 
-this api check if there is enough  money in server memory 
-if there is money 
-insert bid object to redis and remove money from the server
+This api give indication if there is enough money on server memory
+and reduce money in case a bid happens.
 
-the second api is to get the answer of the result of bid
-
+The second api is to get the answer of the result of bid
 @PostMapping("/bid/{id}/{status}")
 
-post request get  bit id and status (WIN,LOSE)
-and update accordingly the server budget
-and bid status in redis
-
+post request get bid id and status (WIN,LOSE)
+and update accordingly the server budget.
 
 
